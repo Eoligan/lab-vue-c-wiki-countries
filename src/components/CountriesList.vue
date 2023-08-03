@@ -28,11 +28,11 @@ const fetchCountries = async () => {
       "https://ih-countries-api.herokuapp.com/countries"
     )
     const data = await response.json()
+    for (let i = 0; i < data.length; i++) {
+      countriesList.value.push(data[i])
+    }
   } catch (error) {
     console.log("There was an error", error)
-  }
-  for (let i = 0; i < data.length; i++) {
-    countriesList.value.push(data[i])
   }
 }
 
