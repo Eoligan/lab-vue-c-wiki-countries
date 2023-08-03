@@ -1,15 +1,9 @@
 <template>
-  <div class="app">
-
-  </div>
-  <div class="text-green-700 text-xl">Hello, from TailwindCSS!</div>
-
+  <Home></Home>
 </template>
 
-<script>
-
+<script setup>
+import Home from "@/views/Home.vue";
 </script>
 
-<style>
-
-</style>
+<style></style>
