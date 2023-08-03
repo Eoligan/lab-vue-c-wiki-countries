@@ -1,7 +1,9 @@
 <template>
   <NavBar></NavBar>
-  <CountriesList class="grid place-items-center"></CountriesList>
-  <CountryDetails></CountryDetails>
+  <div class="grid grid-cols-3 m-6 gap-6 h-[calc(100vh-5rem-3rem)]">
+    <CountriesList class="col-span-1"></CountriesList>
+    <CountryDetails class="col-span-2"></CountryDetails>
+  </div>
 </template>
 
 <script setup>
