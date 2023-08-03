@@ -1,8 +1,8 @@
 <template>
-  <h3
-    class="bg-sky-300 border-b-2 sticky top-0 border-black w-full h-20 grid place-items-center text-black"
+  <div
+    class="grid h-20 w-full place-items-center border-b-2 border-black bg-sky-300"
   >
-    LAB - WikiCountries
-  </h3>
+    <h3 class="font-bold text-black">LAB - WikiCountries</h3>
+  </div>
 </template>
 <script setup></script>

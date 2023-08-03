@@ -1,15 +1,19 @@
 <template>
-  <NavBar></NavBar>
-  <div class="grid grid-cols-3 m-6 gap-6 h-[calc(100vh-5rem-3rem)]">
-    <CountriesList class="col-span-1"></CountriesList>
-    <CountryDetails class="col-span-2"></CountryDetails>
+  <div class="flex h-screen flex-col">
+    <NavBar></NavBar>
+    <div
+      class="grid max-w-7xl flex-1 grid-cols-3 gap-6 self-center overflow-y-auto p-5"
+    >
+      <CountriesList class="scroll col-span-1 overflow-y-auto"></CountriesList>
+      <CountryDetails class="col-span-2"></CountryDetails>
+    </div>
   </div>
 </template>
 
 <script setup>
-import NavBar from "@/components/NavBar.vue";
-import CountriesList from "../components/CountriesList.vue";
-import CountryDetails from "../components/CountryDetails.vue";
+import NavBar from "@/components/NavBar.vue"
+import CountriesList from "@/components/CountriesList.vue"
+import CountryDetails from "@/components/CountryDetails.vue"
 </script>
 
 <style></style>
