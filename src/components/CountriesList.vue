@@ -3,14 +3,14 @@
     <section>
       <ul class="">
         <li
-          class="border border-gray-400 p-10 grid place-items-center hover:bg-gray-200 cursor-pointer uppercase font-bold text-sm"
+          class="border border-gray-400 p-10 grid place-items-center hover:bg-gray-200 cursor-pointer uppercase font-bold text-sm active:bg-gray-300"
           v-for="country in sortedCountriesList"
           :key="country.id"
         >
-          {{ country }}
+          {{ country.name.common }}
           <img
             class="pt-4"
-            src="https://flagpedia.net/data/flags/icon/72x54/fr.png"
+            :src="`https://flagpedia.net/data/flags/icon/72x54/${country.alpha2Code.toLowerCase()}.png`"
             alt=""
           />
         </li>
@@ -30,7 +30,7 @@ const fetchCountries = async (total) => {
   );
   const data = await response.json();
   for (let i = 0; i < data.length; i++) {
-    countriesList.value.push(data[i].name.common);
+    countriesList.value.push(data[i]);
   }
 };
 
@@ -39,6 +39,8 @@ onMounted(() => {
 });
 
 const sortedCountriesList = computed(() => {
-  return countriesList.value.sort();
+  return countriesList.value.sort((a, b) => {
+    return a.name.common.localeCompare(b.name.common);
+  });
 });
 </script>
