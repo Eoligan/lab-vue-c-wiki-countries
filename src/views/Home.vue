@@ -4,8 +4,8 @@
     <div
       class="grid max-w-7xl flex-1 grid-cols-3 gap-6 self-center overflow-y-auto p-5"
     >
-      <CountriesList class="scroll col-span-1 overflow-y-auto"></CountriesList>
-      <CountryDetails class="col-span-2"></CountryDetails>
+      <CountriesList></CountriesList>
+      <!-- <CountryDetails class="col-span-2"></CountryDetails> -->
     </div>
   </div>
 </template>
