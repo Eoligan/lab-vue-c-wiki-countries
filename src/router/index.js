@@ -1,29 +1,23 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router"
 import Home from "@/views/Home.vue"
-import CountriesList from "@/components/CountriesList.vue";
-import CountryDetails from "@/components/CountryDetails.vue";
-
-const routes = [
-  {
-    path: "/",
-    name: "home",
-    component: Home,
-    children: [
-      {
-        path: "/:alpha3Code",
-        name: "list",
-        component: CountriesList,
-      },
-    ],
-  },
-];
+import CountriesList from "@/components/CountriesList.vue"
+import CountryDetails from "@/components/CountryDetails.vue"
 
 const router = createRouter({
-  history: createWebHistory("/"),
-  routes,
-  scrollBehavior() {
-    document.getElementById("app").scrollIntoView();
-  },
-});
+  history: createWebHistory(),
 
-export default router;
+  routes: [
+    {
+      path: "/",
+      name: "home",
+      component: Home,
+    },
+    {
+      path: "/:country",
+      name: "country",
+      component: CountryDetails,
+    },
+  ],
+})
+
+export default router
