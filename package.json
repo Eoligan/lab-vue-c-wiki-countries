@@ -66,6 +66,7 @@
     "picocolors": "^1.0.0",
     "picomatch": "^2.3.1",
     "pify": "^2.3.0",
+    "pinia": "^2.1.6",
     "pirates": "^4.0.6",
     "postcss-import": "^15.1.0",
     "postcss-js": "^4.0.1",

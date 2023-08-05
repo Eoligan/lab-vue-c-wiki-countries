@@ -1,43 +1,36 @@
 <script setup>
-import { ref, onMounted, computed } from "vue"
-import CountryDetails from "./CountryDetails.vue"
+import { ref, computed, watch } from "vue"
+import { useRoute } from "vue-router"
+import CountryDetails from "@/components/CountryDetails.vue"
+import { useCountriesStore } from "@/stores/countriesStore"
 
-const countriesList = ref([])
+const countriesStore = useCountriesStore()
 const selectedCountry = ref()
-
-const fetchCountries = async () => {
-  try {
-    const response = await fetch(
-      "https://ih-countries-api.herokuapp.com/countries"
-    )
-    const data = await response.json()
-
-    countriesList.value = data
-  } catch (error) {
-    console.log("There was an error", error)
-  }
-}
-
-onMounted(() => {
-  fetchCountries()
-})
+const route = useRoute()
 
 const sortedCountriesList = computed(() => {
-  return countriesList.value.sort((a, b) => {
+  return countriesStore.countriesList.sort((a, b) => {
     return a.name.common.localeCompare(b.name.common)
   })
 })
 
+watch(
+  () => route.params.country,
+  () => {
+    selectedCountry.value = countriesStore.countriesList.find(
+      (country) => country.alpha3Code === route.params.country
+    )
+  }
+)
+
 const selectCountry = (country) => {
-  // console.log(country);
   selectedCountry.value = country
-  // console.log(selectedCountry.value.alpha3Code)
 }
 </script>
 
 <template>
   <div
-    class="grid max-w-7xl flex-1 grid-cols-3 gap-6 self-center overflow-y-auto p-5"
+    class="grid max-w-7xl flex-1 grid-cols-3 gap-6 self-center overflow-y-auto bg-slate-200 p-5"
   >
     <section class="scroll col-span-1 overflow-y-auto">
       <ul>
@@ -47,32 +40,41 @@ const selectCountry = (country) => {
           v-for="country in sortedCountriesList"
           :key="country.alpha3Code"
         >
-          {{ country.name.common }}
+          <RouterLink
+            class="grid h-full w-full place-items-center"
+            :to="{
+              name: 'home',
+              params: { country: country.alpha3Code },
+            }"
+          >
+            {{ country.name.common }}
 
-          <img
-            class="pt-4"
-            :src="`https://flagpedia.net/data/flags/icon/72x54/${country.alpha2Code.toLowerCase()}.png`"
-            alt=""
-          />
+            <img
+              class="pt-4"
+              :src="`https://flagpedia.net/data/flags/icon/72x54/${country.alpha2Code.toLowerCase()}.png`"
+              alt=""
+            />
+          </RouterLink>
         </li>
       </ul>
     </section>
 
+    <section class="col-span-2" v-if="!selectedCountry">
+      <h1 class="grid place-items-center pt-40 text-center text-4xl font-bold">
+        Welcome
+      </h1>
+      <p class="text-center text-2xl">Select a country to show the details.</p>
+    </section>
+
     <section class="col-span-2" v-if="selectedCountry">
-      <RouterLink
-        :to="{
-          name: 'country',
-          params: { country: selectedCountry.alpha3Code },
-        }"
+      <CountryDetails
+        :name="selectedCountry.name.common"
+        :capital="selectedCountry.capital[0]"
+        :area="selectedCountry.area"
+        :borders="selectedCountry.borders"
+        :image="selectedCountry.alpha2Code.toLowerCase()"
       >
-        <CountryDetails
-          :name="selectedCountry.name.common"
-          :capital="selectedCountry.capital[0]"
-          :area="selectedCountry.area"
-          :borders="selectedCountry.borders"
-          :image="selectedCountry.alpha2Code.toLowerCase()"
-        ></CountryDetails>
-      </RouterLink>
+      </CountryDetails>
     </section>
   </div>
 </template>
