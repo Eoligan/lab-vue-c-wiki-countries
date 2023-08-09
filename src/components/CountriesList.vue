@@ -15,7 +15,7 @@ const sortedCountriesList = computed(() => {
 })
 
 watch(
-  () => route.params.country,
+  () => [route.params.country, countriesStore.countriesList],
   () => {
     selectedCountry.value = countriesStore.countriesList.find(
       (country) => country.alpha3Code === route.params.country
